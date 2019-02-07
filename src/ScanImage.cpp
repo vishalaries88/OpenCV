@@ -13,20 +13,20 @@ static void help()
     cout
         << "\n--------------------------------------------------------------------------" << endl
         << "This program shows how to scan image objects in OpenCV (cv::Mat). As use case"
-        << " we take an input image and divide the native color palette (255) with the "  << endl
-        << "input. Shows C operator[] method, iterators and at function for on-the-fly item address calculation."<< endl
-        << "Usage:"                                                                       << endl
-        << "./how_to_scan_images <imageNameToUse> <divideWith> [G]"                       << endl
-        << "if you add a G parameter the image is processed in gray scale"                << endl
-        << "--------------------------------------------------------------------------"   << endl
+        << " we take an input image and divide the native color palette (255) with the " << endl
+        << "input. Shows C operator[] method, iterators and at function for on-the-fly item address calculation." << endl
+        << "Usage:" << endl
+        << "./how_to_scan_images <imageNameToUse> <divideWith> [G]" << endl
+        << "if you add a G parameter the image is processed in gray scale" << endl
+        << "--------------------------------------------------------------------------" << endl
         << endl;
 }
 
-Mat& ScanImageAndReduceC(Mat& I, const uchar* table);
-Mat& ScanImageAndReduceIterator(Mat& I, const uchar* table);
-Mat& ScanImageAndReduceRandomAccess(Mat& I, const uchar * table);
+Mat &ScanImageAndReduceC(Mat &I, const uchar *table);
+Mat &ScanImageAndReduceIterator(Mat &I, const uchar *table);
+Mat &ScanImageAndReduceRandomAccess(Mat &I, const uchar *table);
 
-int main( int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     help();
     if (argc < 3)
@@ -36,7 +36,7 @@ int main( int argc, char* argv[])
     }
 
     Mat I, J;
-    if( argc == 4 && !strcmp(argv[3],"G") )
+    if (argc == 4 && !strcmp(argv[3], "G"))
         I = imread(argv[1], IMREAD_GRAYSCALE);
     else
         I = imread(argv[1], IMREAD_COLOR);
@@ -60,7 +60,7 @@ int main( int argc, char* argv[])
 
     uchar table[256];
     for (int i = 0; i < 256; ++i)
-       table[i] = (uchar)(divideWith * (i/divideWith));
+        table[i] = (uchar)(divideWith * (i / divideWith));
     //! [dividewith]
 
     const int times = 100;
@@ -74,11 +74,11 @@ int main( int argc, char* argv[])
         J = ScanImageAndReduceC(clone_i, table);
     }
 
-    t = 1000*((double)getTickCount() - t)/getTickFrequency();
+    t = 1000 * ((double)getTickCount() - t) / getTickFrequency();
     t /= times;
 
     cout << "Time of reducing with the C operator [] (averaged for "
-         << times << " runs): " << t << " milliseconds."<< endl;
+         << times << " runs): " << t << " milliseconds." << endl;
 
     t = (double)getTickCount();
 
@@ -88,11 +88,11 @@ int main( int argc, char* argv[])
         J = ScanImageAndReduceIterator(clone_i, table);
     }
 
-    t = 1000*((double)getTickCount() - t)/getTickFrequency();
+    t = 1000 * ((double)getTickCount() - t) / getTickFrequency();
     t /= times;
 
     cout << "Time of reducing with the iterator (averaged for "
-        << times << " runs): " << t << " milliseconds."<< endl;
+         << times << " runs): " << t << " milliseconds." << endl;
 
     t = (double)getTickCount();
 
@@ -102,16 +102,16 @@ int main( int argc, char* argv[])
         ScanImageAndReduceRandomAccess(clone_i, table);
     }
 
-    t = 1000*((double)getTickCount() - t)/getTickFrequency();
+    t = 1000 * ((double)getTickCount() - t) / getTickFrequency();
     t /= times;
 
     cout << "Time of reducing with the on-the-fly address generation - at function (averaged for "
-        << times << " runs): " << t << " milliseconds."<< endl;
+         << times << " runs): " << t << " milliseconds." << endl;
 
     //! [table-init]
     Mat lookUpTable(1, 256, CV_8U);
-    uchar* p = lookUpTable.ptr();
-    for( int i = 0; i < 256; ++i)
+    uchar *p = lookUpTable.ptr();
+    for (int i = 0; i < 256; ++i)
         p[i] = table[i];
     //! [table-init]
 
@@ -120,18 +120,18 @@ int main( int argc, char* argv[])
     for (int i = 0; i < times; ++i)
         //! [table-use]
         LUT(I, lookUpTable, J);
-        //! [table-use]
+    //! [table-use]
 
-    t = 1000*((double)getTickCount() - t)/getTickFrequency();
+    t = 1000 * ((double)getTickCount() - t) / getTickFrequency();
     t /= times;
 
     cout << "Time of reducing with the LUT function (averaged for "
-        << times << " runs): " << t << " milliseconds."<< endl;
+         << times << " runs): " << t << " milliseconds." << endl;
     return 0;
 }
 
 //! [scan-c]
-Mat& ScanImageAndReduceC(Mat& I, const uchar* const table)
+Mat &ScanImageAndReduceC(Mat &I, const uchar *const table)
 {
     // accept only char type matrices
     CV_Assert(I.depth() == CV_8U);
@@ -147,12 +147,12 @@ Mat& ScanImageAndReduceC(Mat& I, const uchar* const table)
         nRows = 1;
     }
 
-    int i,j;
-    uchar* p;
-    for( i = 0; i < nRows; ++i)
+    int i, j;
+    uchar *p;
+    for (i = 0; i < nRows; ++i)
     {
         p = I.ptr<uchar>(i);
-        for ( j = 0; j < nCols; ++j)
+        for (j = 0; j < nCols; ++j)
         {
             p[j] = table[p[j]];
         }
@@ -162,31 +162,31 @@ Mat& ScanImageAndReduceC(Mat& I, const uchar* const table)
 //! [scan-c]
 
 //! [scan-iterator]
-Mat& ScanImageAndReduceIterator(Mat& I, const uchar* const table)
+Mat &ScanImageAndReduceIterator(Mat &I, const uchar *const table)
 {
     // accept only char type matrices
     CV_Assert(I.depth() == CV_8U);
 
     const int channels = I.channels();
-    switch(channels)
+    switch (channels)
     {
     case 1:
-        {
-            MatIterator_<uchar> it, end;
-            for( it = I.begin<uchar>(), end = I.end<uchar>(); it != end; ++it)
-                *it = table[*it];
-            break;
-        }
+    {
+        MatIterator_<uchar> it, end;
+        for (it = I.begin<uchar>(), end = I.end<uchar>(); it != end; ++it)
+            *it = table[*it];
+        break;
+    }
     case 3:
+    {
+        MatIterator_<Vec3b> it, end;
+        for (it = I.begin<Vec3b>(), end = I.end<Vec3b>(); it != end; ++it)
         {
-            MatIterator_<Vec3b> it, end;
-            for( it = I.begin<Vec3b>(), end = I.end<Vec3b>(); it != end; ++it)
-            {
-                (*it)[0] = table[(*it)[0]];
-                (*it)[1] = table[(*it)[1]];
-                (*it)[2] = table[(*it)[2]];
-            }
+            (*it)[0] = table[(*it)[0]];
+            (*it)[1] = table[(*it)[1]];
+            (*it)[2] = table[(*it)[2]];
         }
+    }
     }
 
     return I;
@@ -194,35 +194,38 @@ Mat& ScanImageAndReduceIterator(Mat& I, const uchar* const table)
 //! [scan-iterator]
 
 //! [scan-random]
-Mat& ScanImageAndReduceRandomAccess(Mat& I, const uchar* const table)
+Mat &ScanImageAndReduceRandomAccess(Mat &I, const uchar *const table)
 {
-    // accept only char type matrices
+
     CV_Assert(I.depth() == CV_8U);
 
     const int channels = I.channels();
-    switch(channels)
+    switch (channels)
     {
     case 1:
-        {
-            for( int i = 0; i < I.rows; ++i)
-                for( int j = 0; j < I.cols; ++j )
-                    I.at<uchar>(i,j) = table[I.at<uchar>(i,j)];
-            break;
-        }
+    {
+        for (int i = 0; i < I.rows; ++i)
+            for (int j = 0; j < I.cols; ++j)
+                I.at<uchar>(i, j) = table[I.at<uchar>(i, j)];
+        break;
+    }
     case 3:
-        {
-         Mat_<Vec3b> _I = I;
+    {
+        Mat_<Vec3b> _I = I;
 
-         for( int i = 0; i < I.rows; ++i)
-            for( int j = 0; j < I.cols; ++j )
-               {
-                   _I(i,j)[0] = table[_I(i,j)[0]];
-                   _I(i,j)[1] = table[_I(i,j)[1]];
-                   _I(i,j)[2] = table[_I(i,j)[2]];
+        for (int i = 0; i < I.rows; ++i)
+            for (int j = 0; j < I.cols; ++j)
+            {
+                _I(i, j)
+                [0] = table[_I(i, j)[0]];
+                _I(i, j)
+                [1] = table[_I(i, j)[1]];
+                _I(i, j)
+                [2] = table[_I(i, j)[2]];
             }
-         I = _I;
-         break;
-        }
+        I = _I;
+        break;
+    }
     }
 
     return I;

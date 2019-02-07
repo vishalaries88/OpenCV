@@ -3,33 +3,45 @@
 #include <iostream>
 using namespace std;
 using namespace cv;
-int main( int argc, char** argv )
+int main(int argc, char **argv)
 {
-    double alpha = 1.0; /*< Simple contrast control */
-    int beta = 0;       /*< Simple brightness control */
+    double alpha = 1.0;                   /*< Simple contrast control */
+    int beta = 0;                         /*< Simple brightness control */
     String imageName("../data/lena.jpg"); // by default
     if (argc > 1)
     {
         imageName = argv[1];
     }
-    Mat image = imread( imageName );
-    Mat new_image = Mat::zeros( image.size(), image.type() );
+    Mat image = imread(imageName);
+    Mat new_image = Mat::zeros(image.size(), image.type());
     cout << " Basic Linear Transforms " << endl;
     cout << "-------------------------" << endl;
-    cout << "* Enter the alpha value [1.0-3.0]: "; cin >> alpha;
-    cout << "* Enter the beta value [0-100]: ";    cin >> beta;
-    for( int y = 0; y < image.rows; y++ ) {
-        for( int x = 0; x < image.cols; x++ ) {
-            for( int c = 0; c < 3; c++ ) {
-                new_image.at<Vec3b>(y,x)[c] =
-                  saturate_cast<uchar>( alpha*( image.at<Vec3b>(y,x)[c] ) + beta );
+    cout << "* Enter the alpha value [1.0-3.0]: ";
+    cin >> alpha;
+    cout << "* Enter the beta value [0-100]: ";
+    cin >> beta;
+    imshow("Original Image", image);
+
+    while (1)
+    {
+        for (int y = 0; y < image.rows; y++)
+        {
+            for (int x = 0; x < image.cols; x++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    new_image.at<Vec3b>(y, x)[c] =
+                        saturate_cast<uchar>(alpha * (image.at<Vec3b>(y, x)[c]) + beta);
+                }
             }
         }
+
+        imshow("New Image", new_image);
+        waitKey();
+        alpha += 0.1;
+        if (alpha == 2.9)
+            break;
     }
-    namedWindow("Original Image", WINDOW_AUTOSIZE);
-    namedWindow("New Image", WINDOW_AUTOSIZE);
-    imshow("Original Image", image);
-    imshow("New Image", new_image);
-    waitKey();
+
     return 0;
 }
