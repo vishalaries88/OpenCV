@@ -13,12 +13,16 @@ add_executable( ScanImage "${SRC}ScanImage.cpp"  )
 add_executable( MaskOperation "${SRC}MaskOperation.cpp"  )
 add_executable( Blend "${SRC}Blend.cpp"  )
 add_executable( BrightnessContrast "${SRC}BrightnessContrast.cpp"  )
+add_executable( warpTriangle "${SRC}warpTriangle.cpp"  )
+
 
 target_link_libraries( DisplayImage ${OpenCV_LIBS} )
 target_link_libraries( ScanImage ${OpenCV_LIBS} )
 target_link_libraries( MaskOperation ${OpenCV_LIBS} )
 target_link_libraries( Blend ${OpenCV_LIBS} )
 target_link_libraries( BrightnessContrast ${OpenCV_LIBS} )
+target_link_libraries( warpTriangle ${OpenCV_LIBS} )
+
 
 
 
