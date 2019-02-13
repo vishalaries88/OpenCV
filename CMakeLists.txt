@@ -14,6 +14,11 @@ add_executable( MaskOperation "${SRC}MaskOperation.cpp"  )
 add_executable( Blend "${SRC}Blend.cpp"  )
 add_executable( BrightnessContrast "${SRC}BrightnessContrast.cpp"  )
 add_executable( warpTriangle "${SRC}warpTriangle.cpp"  )
+add_executable( msm "${SRC}MSM.cpp"  )
+
+target_include_directories( msm PUBLIC
+    boost_1_69_0/
+)
 
 
 target_link_libraries( DisplayImage ${OpenCV_LIBS} )
