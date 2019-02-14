@@ -15,10 +15,17 @@ add_executable( Blend "${SRC}Blend.cpp"  )
 add_executable( BrightnessContrast "${SRC}BrightnessContrast.cpp"  )
 add_executable( warpTriangle "${SRC}warpTriangle.cpp"  )
 add_executable( msm "${SRC}MSM.cpp"  )
+add_executable( barcode-QRcodeScanner "${SRC}barcode-QRcodeScanner.cpp"  )
+add_executable( msmOrig "${SRC}StateMachineEx.cpp"  )
 
-target_include_directories( msm PUBLIC
+target_include_directories(
+    msm  PUBLIC
     boost_1_69_0/
-)
+    )
+target_include_directories(
+        msmOrig PUBLIC
+        boost_1_69_0/
+        )
 
 
 target_link_libraries( DisplayImage ${OpenCV_LIBS} )
