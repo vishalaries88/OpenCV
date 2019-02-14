@@ -14,6 +14,13 @@ add_executable( MaskOperation "${SRC}MaskOperation.cpp"  )
 add_executable( Blend "${SRC}Blend.cpp"  )
 add_executable( BrightnessContrast "${SRC}BrightnessContrast.cpp"  )
 add_executable( warpTriangle "${SRC}warpTriangle.cpp"  )
+add_executable( barcode-QRcodeScanner "${SRC}barcode-QRcodeScanner.cpp"  )
+add_executable( msmOrig "${SRC}StateMachineEx.cpp"  )
+
+target_include_directories(
+    msm PUBLIC
+    boost_1_66_0/
+    )
 
 
 target_link_libraries( DisplayImage ${OpenCV_LIBS} )
@@ -22,6 +29,9 @@ target_link_libraries( MaskOperation ${OpenCV_LIBS} )
 target_link_libraries( Blend ${OpenCV_LIBS} )
 target_link_libraries( BrightnessContrast ${OpenCV_LIBS} )
 target_link_libraries( warpTriangle ${OpenCV_LIBS} )
+target_link_libraries( barcode-QRcodeScanner ${OpenCV_LIBS} zbar)
+target_link_libraries( msmOrig ${OpenCV_LIBS} )
+
 
 
 

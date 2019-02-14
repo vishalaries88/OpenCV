@@ -4,13 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "DisplayImage",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/DisplayImage",
-            "args": ["${workspaceFolder}/images/img1.png"],
+            "args": [
+                "${workspaceFolder}/images/img1.png"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -29,7 +30,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/ScanImage",
-            "args": ["${workspaceFolder}/images/color4k.jpg","2.5345"],
+            "args": [
+                "${workspaceFolder}/images/color4k.jpg",
+                "2.5345"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -48,7 +52,9 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/MaskOperation",
-            "args": ["${workspaceFolder}/images/color4k.jpg"],
+            "args": [
+                "${workspaceFolder}/images/color4k.jpg"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -67,7 +73,9 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/Blend",
-            "args": ["${workspaceFolder}/images/color4k.jpg"],
+            "args": [
+                "${workspaceFolder}/images/color4k.jpg"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -86,7 +94,9 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/BrightnessContrast",
-            "args": ["${workspaceFolder}/images/color.jpg"],
+            "args": [
+                "${workspaceFolder}/images/color.jpg"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -105,7 +115,49 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/warpTriangle",
-            "args": ["${workspaceFolder}/images/robot.jpg"],
+            "args": [
+                "${workspaceFolder}/images/robot.jpg"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "barcode-QRcodeScanner",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/barcode-QRcodeScanner",
+            "args": [
+                "${workspaceFolder}/images/zbar-test.jpg"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },       
+        {
+            "name": "msmOrig",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/msmOrig",
+            "args": [""],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -119,12 +171,5 @@
                 }
             ]
         }
-
-
-
-
-
-
-
     ]
 }
